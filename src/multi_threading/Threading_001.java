@@ -12,6 +12,7 @@ public class Threading_001 {
 
         startThread01();
 
+        startThreadWithLambda();
 
     }
 
@@ -31,6 +32,26 @@ public class Threading_001 {
         });
 
         t1.start();
+    }
+
+
+    private static void startThreadWithLambda(){
+
+        Runnable task = ()->{
+            System.out.println("Thread with Lambda : Thread Name : "+Thread.currentThread().getName());
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Thread with Lambda : Thread Name : "+Thread.currentThread().getName());
+
+        };
+
+        Thread t = new Thread(task);
+        t.start();
+
+
     }
 
 
