@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 public class ArrayListDemo {
 
@@ -95,6 +96,7 @@ public class ArrayListDemo {
         System.out.println("Before Sort : "+listStr);
 //        Collections.sort(listStr);
 
+
         Collections.sort(listStr, (o1, o2) -> {
             return o2.compareTo(o1);
         });
@@ -115,6 +117,9 @@ public class ArrayListDemo {
         listEpm.add(emp2);
         listEpm.add(emp3);
         listEpm.add(emp4);
+
+        listEpm.stream().filter(e-> e.getEmpSalary() > 1000L).collect(Collectors.toList());
+
         Collections.sort(listEpm);
         System.out.println("After default comparable sorting!!!");
         for (Employee employee : listEpm) {
