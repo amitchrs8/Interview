@@ -116,6 +116,24 @@ public class CompletableFutureDemo {
     }
 
 
+    private static void testThenCompose() throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(()->{
+            return 12;
+        });
+
+        CompletableFuture<Integer> future2 = future1.thenCompose((num)->CompletableFuture.supplyAsync(()->num*2));
+        CompletableFuture<Integer> future3 = future2.thenCompose((num)->CompletableFuture.supplyAsync(()->num*num));
+
+        System.out.println("Final Result of Compose : "+future3.get());
+
+    }
+
+    private static void testThenCombine() throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer>  future = CompletableFuture.supplyAsync(()->2);
+        CompletableFuture<Integer> resultFuture = future.thenCombine(CompletableFuture.supplyAsync(()->3),(n1,n2)->(int)Math.pow(n1,n2));
+        System.out.println("Final Combine Result : "+resultFuture.get());
+    }
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        System.out.println("Calling get on compFuture");
 //        System.out.println(testCompFuture1(4).get());
@@ -125,6 +143,8 @@ public class CompletableFutureDemo {
 //        testSupplyAsync();
 //        testApply();
 //        testApplyAsync();
-        testThenAccept();
+//        testThenAccept();
+//        testThenCompose();
+        testThenCombine();
     }
 }
